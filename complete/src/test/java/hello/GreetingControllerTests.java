@@ -40,15 +40,23 @@ public class GreetingControllerTests {
     public void noParamGreetingShouldReturnDefaultMessage() throws Exception {
 
         this.mockMvc.perform(get("/greeting")).andDo(print()).andExpect(status().isOk())
-                .andExpect(jsonPath("$.content").value("Hello, World!"));
+                .andExpect(jsonPath("$.content").value("Hello, WORLD! Oh, hey. Sorry for shouting. We can just whisper your name, *world*."));
     }
 
     @Test
     public void paramGreetingShouldReturnTailoredMessage() throws Exception {
 
-        this.mockMvc.perform(get("/greeting").param("name", "Spring Community"))
-                .andDo(print()).andExpect(status().isOk())
-                .andExpect(jsonPath("$.content").value("Hello, Spring Community!"));
+        this.mockMvc.perform(get("/greeting").param("name", "Test Case 2"))
+            .andDo(print()).andExpect(status().isOk())
+            .andExpect(jsonPath("$.content").value("Hello, TEST CASE 2! Oh, hey. Sorry for shouting. We can just whisper your name, *test case 2*."));
+    }
+
+    @Test
+    public void paramGreetingShouldReturnTailoredMessageForNumbers() throws Exception {
+
+        this.mockMvc.perform(get("/greeting").param("name", "8675309"))
+            .andDo(print()).andExpect(status().isOk())
+            .andExpect(jsonPath("$.content").value("Hello, 8675309! Oh, hey. Sorry for shouting. We can just whisper your name, *8675309*."));
     }
 
 }

@@ -8,12 +8,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class GreetingController {
 
-    private static final String template = "Hello, %s!";
+    private static final String template = "Hello, %s! Oh, hey. Sorry for shouting." +
+        " We can just whisper your name, *%s*.";
     private final AtomicLong counter = new AtomicLong();
 
     @RequestMapping("/greeting")
     public Greeting greeting(@RequestParam(value="name", defaultValue="World") String name) {
         return new Greeting(counter.incrementAndGet(),
-                            String.format(template, name));
+                            String.format(template, name.toUpperCase(), name.toLowerCase()));
     }
 }
